@@ -24,18 +24,18 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
   && docker-php-ext-install -j$(nproc) mbstring xml iconv mcrypt gd intl xmlrpc zip bcmath sockets pdo pdo_mysql zip pcntl
 
 RUN curl -fsSL 'https://xdebug.org/files/xdebug-2.4.0.tgz' -o xdebug.tar.gz \
-    && mkdir -p xdebug \
-    && tar -xf xdebug.tar.gz -C xdebug --strip-components=1 \
-    && rm xdebug.tar.gz \
-    && ( \
+  && mkdir -p xdebug \
+  && tar -xf xdebug.tar.gz -C xdebug --strip-components=1 \
+  && rm xdebug.tar.gz \
+  && ( \
     cd xdebug \
     && phpize \
     && ./configure --enable-xdebug \
     && make -j$(nproc) \
     && make install \
-    ) \
-    && rm -r xdebug \
-    && docker-php-ext-enable xdebug
+  ) \
+  && rm -r xdebug \
+  && docker-php-ext-enable xdebug
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
@@ -45,5 +45,7 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh
 
 COPY default-vhost.conf /etc/apache2/sites-available/default.conf
 RUN a2dissite 000-default.conf && a2ensite default.conf && a2enmod rewrite
+
+COPY php.ini.development /usr/local/etc/php/php.ini
 
 RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
