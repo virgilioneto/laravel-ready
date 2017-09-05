@@ -23,6 +23,10 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
   && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
   && docker-php-ext-install -j$(nproc) mbstring xml iconv mcrypt gd intl xmlrpc zip bcmath sockets pdo pdo_mysql zip pcntl soap
 
+RUN curl https://phar.phpunit.de/phpunit.phar -L > phpunit.phar \
+  && chmod +x phpunit.phar \
+  && mv phpunit.phar /usr/local/bin/phpuni
+
 RUN pecl install -o -f mongodb
 
 RUN docker-php-ext-enable mongodb
