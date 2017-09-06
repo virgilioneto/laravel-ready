@@ -27,9 +27,9 @@ RUN curl https://phar.phpunit.de/phpunit.phar -L > phpunit.phar \
   && chmod +x phpunit.phar \
   && mv phpunit.phar /usr/local/bin/phpuni
 
-RUN pecl install -o -f mongodb
+RUN pecl install -o -f mongodb xdebug-2.5.5
 
-RUN docker-php-ext-enable mongodb
+RUN docker-php-ext-enable mongodb xdebug
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
