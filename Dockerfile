@@ -1,4 +1,4 @@
-FROM php:7.0-apache
+FROM php:7.0-apache-jessie
 MAINTAINER Virgilio Missão Neto <virgilio.missao.neto@gmail.com>
 
 RUN apt-get update \
