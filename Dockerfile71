@@ -40,6 +40,6 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh
 COPY default-vhost.conf /etc/apache2/sites-available/default.conf
 RUN a2dissite 000-default.conf && a2ensite default.conf && a2enmod rewrite
 
-COPY php.ini.development71 /usr/local/etc/php/php.ini
+COPY php.ini.development /usr/local/etc/php/php.ini
 
 RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
